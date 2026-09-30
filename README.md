@@ -1,98 +1,82 @@
-# Scalable Thread Management Library
+# Thread Management Library
 
-**C + POSIX Threads | Pthreads API**
+**C + POSIX Threads**
 
-A production-grade, scalable thread management library implementing thread lifecycle control, advanced synchronization primitives, a priority-based thread pool, task cancellation, dynamic scaling, thread-safe logging, and a live real-time dashboard with Chart.js visualizations.
+A thread management library in C built on POSIX threads: thread lifecycle control, synchronization primitives (mutex, semaphore, barrier, read-write lock) and a priority thread pool with task cancellation, runtime resizing and optional auto-scaling. It also includes a thread-safe logger, time-series metrics and a live browser dashboard.
 
----
-
-## ✨ Features
-
-### Core Modules
-- ✅ **Thread Lifecycle Manager** — create, join, detach, cancel, status tracking
-- ✅ **Synchronization Engine** — Mutex, Semaphore, Barrier, Read-Write Lock
-- ✅ **Thread Pool** — fixed or auto-scaling, with priority queue
-- ✅ **Priority Scheduling** — NORMAL / HIGH / CRITICAL task levels
-
-### Advanced Features (NEW)
-- 🚀 **Task Cancellation** — cancel queued tasks by ID before execution
-- 🚀 **Dynamic Pool Resizing** — grow/shrink thread pool at runtime
-- 🚀 **Auto-Scaling Mode** — monitor thread adjusts pool based on load
-- 🚀 **Thread-Safe Logger** — levels, timestamps, thread-IDs, file output
-- 🚀 **Live Time-Series Metrics** — snapshots captured every 250ms
-- 🚀 **CSV & JSON Export** — data for reports and external analysis
-- 🚀 **Sequential-vs-Pool Benchmark** — quantitative speedup measurement
-
-### Observability
-- 📊 **Live Browser Dashboard** — real-time thread grid, terminal, and charts
-- 📈 **Live Charts** — throughput, queue depth, completed, live threads (Chart.js)
-- 📉 **Report Graphs** — 6 professional matplotlib PNGs for submission
-- 🧪 **51 Tests** — comprehensive unit + integration test suite
+**Limits:** up to 128 worker threads and a 4,096-task queue (`MAX_POOL_SIZE` and `MAX_QUEUE_SIZE` in `include/thread_pool.h`).
 
 ---
 
-## 🚀 Build & Run
+## Features
 
-```bash
-make              # compile
-make run          # run the full demo
-make test         # run 51-test suite
-make graphs       # generate report graphs (PNG)
-make server       # launch live dashboard on http://localhost:8080
-make clean        # remove build artifacts
-```
+**Core modules**
 
-### Prerequisites
-- GCC with pthread support (`build-essential`)
-- Python 3 (for dashboard + report graphs)
-- `pip install websockets matplotlib`
+- **Thread lifecycle manager** — create, join, detach, cancel, status tracking
+- **Synchronization engine** — mutex, semaphore, barrier, read-write lock
+- **Thread pool** — fixed-size or auto-scaling, with a priority queue
+- **Priority scheduling** — NORMAL / HIGH / CRITICAL task levels
+
+**Pool extras**
+
+- **Task cancellation** — cancel queued tasks by ID before they run
+- **Dynamic resizing** — grow or shrink the pool at runtime
+- **Auto-scaling** — a monitor thread adjusts the pool based on load
+- **Thread-safe logger** — levels, timestamps, thread IDs, file output
+- **Live metrics** — snapshots every 250 ms, exported as CSV and JSON
+- **Benchmark** — sequential vs pool execution of CPU-bound tasks
+
+**Observability**
+
+- **Live browser dashboard** — thread grid, terminal output and Chart.js charts
+- **Report graphs** — six matplotlib PNGs in `graphs/`
 
 ---
 
-## 📂 Project Structure
+## Build & run
 
 ```
-Thread_Library_Pro/
-├── include/                       # Header files
-│   ├── thread_lifecycle.h         # Module 1: thread lifecycle API
-│   ├── sync_engine.h              # Module 2: sync primitives
-│   ├── thread_pool.h              # Module 3: thread pool + metrics
-│   └── logger.h                   # Bonus: thread-safe logger
-├── src/                           # Implementations
+make          # compile
+make run      # run the full demo
+make test     # run the 51-test suite
+make graphs   # generate report graphs (PNG, written to report/graphs/)
+make server   # live dashboard on http://localhost:8080
+make clean    # remove build artifacts
+```
+
+**Prerequisites:** GCC with pthread support (`build-essential`), Python 3, and `pip install websockets matplotlib` for the dashboard and graphs.
+
+---
+
+## Project structure
+
+```
+thread-management-library/
+├── include/                       # headers
+│   ├── thread_lifecycle.h
+│   ├── sync_engine.h
+│   ├── thread_pool.h
+│   └── logger.h
+├── src/                           # implementations
 │   ├── thread_lifecycle.c
 │   ├── sync_engine.c
-│   ├── thread_pool.c              # Enhanced with cancel/resize/history
+│   ├── thread_pool.c
 │   └── logger.c
-├── tests/test_all.c               # 51-test suite
-├── gui/
-│   └── dashboard_connected.html   # Live dashboard with charts
-├── scripts/
-│   └── generate_report_graphs.py  # Matplotlib report graphs
-├── report/graphs/                 # Generated PNG graphs
-│   ├── 01_throughput.png
-│   ├── 02_queue_vs_threads.png
-│   ├── 03_completed.png
-│   ├── 04_wait_time.png
-│   ├── 05_comparison.png
-│   └── 06_summary_card.png
-├── build/metrics/                 # Runtime metrics output
-│   ├── latest_metrics.json
-│   ├── priority_metrics.json
-│   ├── time_series.csv
-│   ├── history.json
-│   ├── comparison.json
-│   └── runtime.log
-├── main.c                         # Full-feature demo
-├── server.py                      # WebSocket bridge for dashboard
-├── Makefile
-└── README.md
+├── tests/test_all.c               # 51 tests
+├── gui/dashboard_connected.html   # dashboard served by server.py
+├── scripts/generate_report_graphs.py
+├── graphs/                        # sample report graphs (PNG)
+├── main.c                         # demo and benchmark
+├── server.py                      # WebSocket bridge for the dashboard
+└── Makefile
 ```
 
 ---
 
-## 📘 API Reference
+## API reference
 
-### Thread Lifecycle
+### Thread lifecycle
+
 ```c
 ThreadHandle* thread_create(void* (*func)(void*), void* arg, int id);
 int           thread_join(ThreadHandle* handle);
@@ -102,6 +86,7 @@ ThreadState   thread_status(ThreadHandle* handle);
 ```
 
 ### Synchronization
+
 ```c
 MutexHandle*   mutex_init();          int mutex_lock(MutexHandle* m);
 SemHandle*     sem_create(int n);     int sem_wait_custom(SemHandle* s);
@@ -109,19 +94,21 @@ BarrierHandle* barrier_init(int n);   int barrier_wait_custom(BarrierHandle* b);
 RWLockHandle*  rwlock_init();         int rwlock_rdlock(RWLockHandle* rw);
 ```
 
-### Thread Pool (Enhanced)
+### Thread pool
+
 ```c
 ThreadPool* pool_init(int size);
 ThreadPool* pool_init_ex(int size, int min_t, int max_t, int auto_scale);
 int         task_submit(ThreadPool* p, void (*f)(void*), void* arg, int id);
 int         task_submit_priority(ThreadPool* p, ..., TaskPriority pri, const char* name);
-int         task_cancel(ThreadPool* p, int task_id);              // NEW
-int         pool_resize(ThreadPool* p, int new_size);             // NEW
-int         pool_export_csv(ThreadPool* p, const char* path);     // NEW
-int         pool_export_history_json(ThreadPool* p, const char* path); // NEW
+int         task_cancel(ThreadPool* p, int task_id);
+int         pool_resize(ThreadPool* p, int new_size);
+int         pool_export_csv(ThreadPool* p, const char* path);
+int         pool_export_history_json(ThreadPool* p, const char* path);
 ```
 
 ### Logger
+
 ```c
 logger_init(LOG_INFO, "runtime.log");
 LOG_I("module", "formatted %d message", value);
@@ -131,70 +118,67 @@ LOG_E("module", "error");
 
 ---
 
-## 📊 Benchmark Results (Observed)
+## Testing
 
-| Metric              | Value                |
-|---------------------|----------------------|
-| Tasks submitted     | 1,130                |
-| Tasks completed     | 1,125                |
-| Tasks cancelled     | 5                    |
-| Live threads (peak) | 16                   |
-| Throughput          | ~193.8 tasks/sec     |
-| Avg exec time       | 64.76 ms             |
-| Seq vs Pool speedup | **1.77×**            |
-| Test suite          | **51 / 51 passing**  |
+51 tests cover the lifecycle, synchronization, pool, priority, metrics, cancellation, resizing, logger, CSV export and a 500-task scalability run:
 
----
+| Area | Tests |
+| --- | --- |
+| Thread lifecycle | 4 |
+| Synchronization (mutex, semaphore, barrier, rwlock) | 13 |
+| Thread pool | 7 |
+| Priority scheduling | 4 |
+| Pool metrics | 5 |
+| Task cancellation | 5 |
+| Dynamic resize | 4 |
+| Logger | 5 |
+| CSV export | 2 |
+| Scalability (500 tasks) | 2 |
 
-## 🎯 CA2 Rubric Mapping
+**Race checking.** The suite was also run under ThreadSanitizer. It found two data races, both now fixed: an unsynchronised shutdown flag for the monitor thread (now `atomic_int`), and the mutex wrapper clearing its `is_locked` flag after releasing the lock (now cleared before). To repeat the check:
 
-| Rubric Requirement           | Where Demonstrated                             |
-|------------------------------|------------------------------------------------|
-| Module-Wise Breakdown        | `include/` and `src/` — 3 clear modules        |
-| Functionalities              | See Features section + `main.c` demos          |
-| Technology Used              | C, pthreads, POSIX, Python, Chart.js, matplotlib |
-| Flow Diagram                 | See diagram in project report                  |
-| Revision Tracking (7+ commits) | Maintain in your GitHub repo                 |
-| Live Demo                    | `make server` + browser at localhost:8080      |
-| Results & Evidence           | `report/graphs/` PNGs, `build/metrics/*`       |
-
----
-
-## 🧪 Test Coverage (51 tests)
-
-- Module 1 — Thread Lifecycle: 4 tests
-- Module 2 — Synchronization: 13 tests (mutex, sem, barrier, rwlock)
-- Module 3 — Thread Pool: 7 tests
-- Priority Scheduling: 4 tests
-- Pool Metrics: 5 tests
-- Task Cancellation: 5 tests ⭐ NEW
-- Dynamic Resize: 4 tests ⭐ NEW
-- Logger: 5 tests ⭐ NEW
-- CSV Export: 2 tests ⭐ NEW
-- Scalability (500 tasks): 2 tests ⭐ NEW
-
----
-
-## 🎨 Dashboard Preview
-
-The live dashboard includes:
-- **Top metric strip** — 6 key stats updating live
-- **Thread visualizer** — animated grid showing thread states
-- **Live terminal** — real C binary output with color coding
-- **4 live charts** — throughput, completed, queue depth, live threads
-
-Launch with:
-```bash
-make server
-# Open http://localhost:8080
+```
+mkdir -p build/metrics
+gcc -pthread -Iinclude -O1 -g -fsanitize=thread src/*.c tests/test_all.c -o test_tsan -lm
+./test_tsan
 ```
 
 ---
 
-## 📚 References
+## Benchmark results
 
-1. POSIX Threads Programming — Butenhof, *Programming with POSIX Threads*
-2. The Linux Programming Interface — Michael Kerrisk
-3. Chart.js documentation — https://www.chartjs.org/
-4. Matplotlib documentation — https://matplotlib.org/
-5. pthread(7) and pthread_*(3) man pages
+One run on a local machine with a 16-thread pool. Exact numbers vary from run to run and with core count.
+
+| Metric | Value |
+| --- | --- |
+| Tasks submitted | 1,130 |
+| Tasks completed | 1,125 |
+| Tasks cancelled | 5 |
+| Live threads (peak) | 16 |
+| Throughput | ~193.8 tasks/sec |
+| Avg exec time | 64.76 ms |
+| Sequential vs pool speedup | 1.77× (200 CPU-bound tasks) |
+| Test suite | 51 / 51 passing |
+
+**Reading the speedup.** 1.77× on 16 threads is modest. The benchmark tasks are sub-millisecond CPU loops, and the pool logs a line while holding its lock after every task, which can serialise workers. Heavier tasks, or moving that log call outside the lock, are the obvious next steps.
+
+---
+
+## Dashboard
+
+`make server` starts a WebSocket bridge that runs the C binary and streams its output to the browser at `http://localhost:8080`:
+
+- **Metric strip** — six key stats updating live
+- **Thread visualizer** — animated grid of thread states
+- **Live terminal** — colour-coded output from the C binary
+- **Four live charts** — throughput, completed tasks, queue depth, live threads
+
+---
+
+## References
+
+1. David R. Butenhof, *Programming with POSIX Threads*
+2. Michael Kerrisk, *The Linux Programming Interface*
+3. Chart.js documentation — <https://www.chartjs.org/>
+4. Matplotlib documentation — <https://matplotlib.org/>
+5. `pthread(7)` and `pthread_*(3)` man pages
