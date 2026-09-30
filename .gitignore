@@ -1,0 +1,20 @@
+# Build output
+thread_library
+thread_library.exe
+test_runner
+test_tsan
+*.o
+
+# Generated when you run make run / make test / make graphs
+build/
+report/
+
+# Python
+__pycache__/
+*.pyc
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
