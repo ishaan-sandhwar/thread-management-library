@@ -28,9 +28,8 @@ int mutex_trylock(MutexHandle* m) {
 
 int mutex_unlock(MutexHandle* m) {
     if (!m) return -1;
-    int r = pthread_mutex_unlock(&m->mutex);
-    if (r == 0) { m->is_locked = 0; }
-    return r;
+    m->is_locked = 0;   /* clear the flag while we still hold the lock */
+    return pthread_mutex_unlock(&m->mutex);
 }
 
 void mutex_destroy(MutexHandle* m) {
