@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <string.h>
+#include <stdatomic.h>
 
 #define MAX_QUEUE_SIZE     4096
 #define MAX_POOL_SIZE      128
@@ -113,7 +114,7 @@ typedef struct {
     MetricSnapshot  history[MAX_HISTORY_POINTS];
     int             history_count;
     pthread_t       monitor_tid;
-    int             monitor_running;
+    atomic_int      monitor_running;
 } ThreadPool;
 
 /* ── Core API ── */
