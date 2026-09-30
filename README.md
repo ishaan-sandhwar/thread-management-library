@@ -1,4 +1,4 @@
-# Thread Management Library
+# 🧵 Thread Management Library
 
 **C + POSIX Threads**
 
@@ -6,34 +6,38 @@ A thread management library in C built on POSIX threads: thread lifecycle contro
 
 **Limits:** up to 128 worker threads and a 4,096-task queue (`MAX_POOL_SIZE` and `MAX_QUEUE_SIZE` in `include/thread_pool.h`).
 
----
-
-## Features
-
-**Core modules**
-
-- **Thread lifecycle manager** — create, join, detach, cancel, status tracking
-- **Synchronization engine** — mutex, semaphore, barrier, read-write lock
-- **Thread pool** — fixed-size or auto-scaling, with a priority queue
-- **Priority scheduling** — NORMAL / HIGH / CRITICAL task levels
-
-**Pool extras**
-
-- **Task cancellation** — cancel queued tasks by ID before they run
-- **Dynamic resizing** — grow or shrink the pool at runtime
-- **Auto-scaling** — a monitor thread adjusts the pool based on load
-- **Thread-safe logger** — levels, timestamps, thread IDs, file output
-- **Live metrics** — snapshots every 250 ms, exported as CSV and JSON
-- **Benchmark** — sequential vs pool execution of CPU-bound tasks
-
-**Observability**
-
-- **Live browser dashboard** — thread grid, terminal output and Chart.js charts
-- **Report graphs** — six matplotlib PNGs in `graphs/`
+<p align="center">
+  <img src="graphs/06_summary_card.png" alt="Thread pool performance summary" width="90%">
+</p>
 
 ---
 
-## Build & run
+## ✨ Features
+
+### Core modules
+
+- ✅ **Thread lifecycle manager** — create, join, detach, cancel, status tracking
+- ✅ **Synchronization engine** — mutex, semaphore, barrier, read-write lock
+- ✅ **Thread pool** — fixed-size or auto-scaling, with a priority queue
+- ✅ **Priority scheduling** — NORMAL / HIGH / CRITICAL task levels
+
+### Pool extras
+
+- 🚀 **Task cancellation** — cancel queued tasks by ID before they run
+- 🚀 **Dynamic resizing** — grow or shrink the pool at runtime
+- 🚀 **Auto-scaling** — a monitor thread adjusts the pool based on load
+- 🚀 **Thread-safe logger** — levels, timestamps, thread IDs, file output
+- 🚀 **Live metrics** — snapshots every 250 ms, exported as CSV and JSON
+- 🚀 **Benchmark** — sequential vs pool execution of CPU-bound tasks
+
+### Observability
+
+- 📊 **Live browser dashboard** — thread grid, terminal output and Chart.js charts
+- 📈 **Report graphs** — six matplotlib PNGs in `graphs/`
+
+---
+
+## 🚀 Build & Run
 
 ```
 make          # compile
@@ -48,7 +52,7 @@ make clean    # remove build artifacts
 
 ---
 
-## Project structure
+## 📂 Project Structure
 
 ```
 thread-management-library/
@@ -73,7 +77,7 @@ thread-management-library/
 
 ---
 
-## API reference
+## 📘 API Reference
 
 ### Thread lifecycle
 
@@ -118,7 +122,7 @@ LOG_E("module", "error");
 
 ---
 
-## Testing
+## 🧪 Testing
 
 51 tests cover the lifecycle, synchronization, pool, priority, metrics, cancellation, resizing, logger, CSV export and a 500-task scalability run:
 
@@ -135,7 +139,7 @@ LOG_E("module", "error");
 | CSV export | 2 |
 | Scalability (500 tasks) | 2 |
 
-**Race checking.** The suite was also run under ThreadSanitizer. It found two data races, both now fixed: an unsynchronised shutdown flag for the monitor thread (now `atomic_int`), and the mutex wrapper clearing its `is_locked` flag after releasing the lock (now cleared before). To repeat the check:
+**🔍 Race checking.** The suite was also run under ThreadSanitizer. It found two data races, both now fixed: an unsynchronised shutdown flag for the monitor thread (now `atomic_int`), and the mutex wrapper clearing its `is_locked` flag after releasing the lock (now cleared before). To repeat the check:
 
 ```
 mkdir -p build/metrics
@@ -145,37 +149,55 @@ gcc -pthread -Iinclude -O1 -g -fsanitize=thread src/*.c tests/test_all.c -o test
 
 ---
 
-## Benchmark results
+## 📊 Benchmark Results
 
-One run on a local machine with a 16-thread pool. Exact numbers vary from run to run and with core count.
+One run on a local machine with a 16-thread pool. Exact numbers vary from run to run and with core count; the table matches the graphs below.
 
 | Metric | Value |
 | --- | --- |
 | Tasks submitted | 1,130 |
-| Tasks completed | 1,125 |
-| Tasks cancelled | 5 |
-| Live threads (peak) | 16 |
-| Throughput | ~193.8 tasks/sec |
-| Avg exec time | 64.76 ms |
-| Sequential vs pool speedup | 1.77× (200 CPU-bound tasks) |
+| Tasks completed | 1,126 |
+| Tasks cancelled | 4 |
+| Tasks failed | 0 |
+| Live threads | 16 |
+| Throughput | ~189.9 tasks/sec |
+| Avg wait time | 1,916.68 ms |
+| Avg exec time | 65.17 ms |
+| Elapsed | 5.93 s |
+| Sequential vs pool (200 CPU-bound tasks) | 0.138 s vs 0.021 s — **6.59×** |
 | Test suite | 51 / 51 passing |
 
-**Reading the speedup.** 1.77× on 16 threads is modest. The benchmark tasks are sub-millisecond CPU loops, and the pool logs a line while holding its lock after every task, which can serialise workers. Heavier tasks, or moving that log call outside the lock, are the obvious next steps.
+The speedup depends on the number of cores: CPU-bound tasks on a single-core machine run at roughly 1× (measured 1.02× on one core).
+
+<p align="center">
+  <img src="graphs/05_comparison.png" alt="Sequential vs thread pool execution time" width="70%">
+</p>
+
+<table>
+  <tr>
+    <td><img src="graphs/01_throughput.png" alt="Throughput over time"></td>
+    <td><img src="graphs/02_queue_vs_threads.png" alt="Queue depth vs thread utilization"></td>
+  </tr>
+  <tr>
+    <td><img src="graphs/03_completed.png" alt="Cumulative tasks completed"></td>
+    <td><img src="graphs/04_wait_time.png" alt="Average task wait time"></td>
+  </tr>
+</table>
 
 ---
 
-## Dashboard
+## 🎨 Dashboard
 
 `make server` starts a WebSocket bridge that runs the C binary and streams its output to the browser at `http://localhost:8080`:
 
-- **Metric strip** — six key stats updating live
+- **Metric strip** — six stats parsed live from the program output
 - **Thread visualizer** — animated grid of thread states
 - **Live terminal** — colour-coded output from the C binary
 - **Four live charts** — throughput, completed tasks, queue depth, live threads
 
 ---
 
-## References
+## 📚 References
 
 1. David R. Butenhof, *Programming with POSIX Threads*
 2. Michael Kerrisk, *The Linux Programming Interface*
