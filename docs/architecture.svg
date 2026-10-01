@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="690" viewBox="0 0 1200 690" role="img" aria-label="Architecture: a C program uses the library&#x27;s lifecycle manager, synchronization engine, priority thread pool and logger; the pool writes metrics every 250 milliseconds to CSV and JSON; a dashboard, report graphs and tests observe and verify it">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/></marker></defs>
+<rect width="1200" height="690" rx="18" fill="#0b1220"/>
+<rect x="1" y="1" width="1198" height="688" rx="17" fill="none" stroke="#ffffff" stroke-opacity="0.08"/>
+<rect x="322" y="24" width="12" height="12" rx="3" fill="#38bdf8"/><text x="342" y="35" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="13.5" font-weight="500" fill="#d5deea">library modules</text>
+<rect x="468" y="24" width="12" height="12" rx="3" fill="#a78bfa"/><text x="488" y="35" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="13.5" font-weight="500" fill="#d5deea">thread pool core</text>
+<rect x="622" y="24" width="12" height="12" rx="3" fill="#34d399"/><text x="642" y="35" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="13.5" font-weight="500" fill="#d5deea">metrics and logs</text>
+<rect x="775" y="24" width="12" height="12" rx="3" fill="#fb923c"/><text x="795" y="35" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="13.5" font-weight="500" fill="#d5deea">dashboard</text>
+<rect x="340" y="60" width="520" height="48" rx="12" fill="#0f172a" stroke="#ffffff" stroke-opacity="0.18"/>
+<text x="600" y="91" text-anchor="middle" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="18" font-weight="700" fill="#ffffff">Your C program  ·  tasks with priorities</text>
+<path d="M 600 110 L 600 136" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+<rect x="30" y="138" width="1140" height="193" rx="16" fill="#38bdf8" fill-opacity="0.05" stroke="#38bdf8" stroke-opacity="0.25" stroke-dasharray="6 6"/>
+<text x="52" y="161" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="13" font-weight="700" fill="#38bdf8">LIBRARY  ·  src/</text>
+<rect x="52" y="172" width="260" height="141" rx="12" fill="#111b2e"/>
+<rect x="52" y="172" width="260" height="141" rx="12" fill="none" stroke="#38bdf8" stroke-opacity="0.75" stroke-width="1.5"/>
+<rect x="60" y="188" width="4" height="109" rx="2" fill="#38bdf8"/>
+<circle cx="90" cy="202" r="14" fill="#38bdf8"/>
+<text x="90" y="208" text-anchor="middle" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="15" font-weight="800" fill="#0b1220">1</text>
+<text x="112" y="209" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="20" font-weight="700" fill="#ffffff">Lifecycle</text>
+<text x="76" y="240" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="14.5" font-weight="400" fill="#d5deea">create, join, detach, cancel,</text>
+<text x="76" y="261" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="14.5" font-weight="400" fill="#d5deea">status</text>
+<path d="M 314 242.5 L 330 242.5" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+<rect x="330" y="172" width="260" height="141" rx="12" fill="#111b2e"/>
+<rect x="330" y="172" width="260" height="141" rx="12" fill="none" stroke="#38bdf8" stroke-opacity="0.75" stroke-width="1.5"/>
+<rect x="338" y="188" width="4" height="109" rx="2" fill="#38bdf8"/>
+<circle cx="368" cy="202" r="14" fill="#38bdf8"/>
+<text x="368" y="208" text-anchor="middle" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="15" font-weight="800" fill="#0b1220">2</text>
+<text x="390" y="209" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="20" font-weight="700" fill="#ffffff">Sync engine</text>
+<text x="354" y="240" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="14.5" font-weight="400" fill="#d5deea">mutex, semaphore, barrier,</text>
+<text x="354" y="261" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="14.5" font-weight="400" fill="#d5deea">read-write lock</text>
+<path d="M 592 242.5 L 608 242.5" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+<rect x="609" y="172" width="260" height="141" rx="12" fill="#111b2e"/>
+<rect x="609" y="172" width="260" height="141" rx="12" fill="none" stroke="#a78bfa" stroke-opacity="0.75" stroke-width="1.5"/>
+<rect x="617" y="188" width="4" height="109" rx="2" fill="#a78bfa"/>
+<circle cx="647" cy="202" r="14" fill="#a78bfa"/>
+<text x="647" y="208" text-anchor="middle" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="15" font-weight="800" fill="#0b1220">3</text>
+<text x="669" y="209" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="20" font-weight="700" fill="#ffffff">Thread pool</text>
+<text x="633" y="240" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="14.5" font-weight="400" fill="#d5deea">Priority queue, cancellation,</text>
+<text x="633" y="261" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="14.5" font-weight="400" fill="#d5deea">runtime resize, auto-scaling</text>
+<path d="M 870 242.5 L 886 242.5" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+<rect x="888" y="172" width="260" height="141" rx="12" fill="#111b2e"/>
+<rect x="888" y="172" width="260" height="141" rx="12" fill="none" stroke="#34d399" stroke-opacity="0.75" stroke-width="1.5"/>
+<rect x="896" y="188" width="4" height="109" rx="2" fill="#34d399"/>
+<circle cx="926" cy="202" r="14" fill="#34d399"/>
+<text x="926" y="208" text-anchor="middle" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="15" font-weight="800" fill="#0b1220">4</text>
+<text x="948" y="209" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="20" font-weight="700" fill="#ffffff">Logger</text>
+<text x="912" y="240" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="14.5" font-weight="400" fill="#d5deea">Thread-safe levels,</text>
+<text x="912" y="261" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="14.5" font-weight="400" fill="#d5deea">timestamps, thread IDs, file</text>
+<text x="912" y="282" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="14.5" font-weight="400" fill="#d5deea">output</text>
+<path d="M 600 333 L 600 359" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+<rect x="340" y="361" width="520" height="48" rx="24" fill="#0f172a" stroke="#34d399" stroke-opacity="0.6"/>
+<text x="600" y="392" text-anchor="middle" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="17" font-weight="700" fill="#34d399">Metrics every 250 ms  →  CSV and JSON</text>
+<path d="M 600 411 L 600 437" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+<rect x="30" y="439" width="1140" height="151" rx="16" fill="#fb923c" fill-opacity="0.05" stroke="#fb923c" stroke-opacity="0.25" stroke-dasharray="6 6"/>
+<text x="52" y="462" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="13" font-weight="700" fill="#fb923c">OBSERVE AND VERIFY</text>
+<rect x="52" y="473" width="353" height="99" rx="12" fill="#111b2e"/>
+<rect x="52" y="473" width="353" height="99" rx="12" fill="none" stroke="#fb923c" stroke-opacity="0.75" stroke-width="1.5"/>
+<rect x="60" y="489" width="4" height="67" rx="2" fill="#fb923c"/>
+<circle cx="90" cy="503" r="14" fill="#fb923c"/>
+<text x="90" y="509" text-anchor="middle" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="15" font-weight="800" fill="#0b1220">5</text>
+<text x="112" y="510" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="20" font-weight="700" fill="#ffffff">Dashboard</text>
+<text x="76" y="541" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="14.5" font-weight="400" fill="#d5deea">WebSocket bridge, thread grid, live charts</text>
+<path d="M 406 522.5 L 422 522.5" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+<rect x="423" y="473" width="353" height="99" rx="12" fill="#111b2e"/>
+<rect x="423" y="473" width="353" height="99" rx="12" fill="none" stroke="#34d399" stroke-opacity="0.75" stroke-width="1.5"/>
+<rect x="431" y="489" width="4" height="67" rx="2" fill="#34d399"/>
+<circle cx="461" cy="503" r="14" fill="#34d399"/>
+<text x="461" y="509" text-anchor="middle" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="15" font-weight="800" fill="#0b1220">6</text>
+<text x="483" y="510" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="20" font-weight="700" fill="#ffffff">Report graphs</text>
+<text x="447" y="541" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="14.5" font-weight="400" fill="#d5deea">Six matplotlib PNGs from one run</text>
+<path d="M 778 522.5 L 794 522.5" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+<rect x="795" y="473" width="353" height="99" rx="12" fill="#111b2e"/>
+<rect x="795" y="473" width="353" height="99" rx="12" fill="none" stroke="#38bdf8" stroke-opacity="0.75" stroke-width="1.5"/>
+<rect x="803" y="489" width="4" height="67" rx="2" fill="#38bdf8"/>
+<circle cx="833" cy="503" r="14" fill="#38bdf8"/>
+<text x="833" y="509" text-anchor="middle" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="15" font-weight="800" fill="#0b1220">7</text>
+<text x="855" y="510" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="20" font-weight="700" fill="#ffffff">Tests</text>
+<text x="819" y="541" text-anchor="start" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="14.5" font-weight="400" fill="#d5deea">51 tests, also run under ThreadSanitizer</text>
+<path d="M 600 592 L 600 618" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+<rect x="192" y="620" width="816" height="48" rx="12" fill="#0f172a" stroke="#ffffff" stroke-opacity="0.18"/>
+<text x="600" y="651" text-anchor="middle" font-family='"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif' font-size="18" font-weight="700" fill="#ffffff">Benchmark: 200 CPU-bound tasks, 0.138 s sequential vs 0.021 s on 16 threads</text>
+</svg>
